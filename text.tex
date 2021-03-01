@@ -1,0 +1,387 @@
+\section{Introduction}
+
+Let $X$ be a vector space over a field $K \in \b{\R, \C}$.
+
+\begin{definition}
+  A map $f \col X \to \R$ is called a \emph{norm}, iff we have
+  ~\begin{enumerate}
+    \item If $x \in X \sm 0$, then $f(x) > 0$; and $f(0) = 0$.
+    \item $f(kx) = \a{k} f(x)$ for all $k \in \R$, $x \in X$.
+    \item $f(x+y) \le f(x)+f(y)$ for all $x, y \in X$.
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}
+  A pair $\p{V, \n{\square}}$, where $\n{\square}$ is a norm on a vector space $V$, is called a \emph{normed space}.
+  A normed space is \emph{Banach}, iff it is complete.
+\end{definition}
+
+\section{Completions}
+
+\begin{definition}
+  $\wh X$ is called a \emph{completion} of $X$, iff $\wh X$ is complete and $X$ is dense in $\wh X$.
+\end{definition}
+
+\begin{theorem}
+  A completion $\wh X$ exists.
+\end{theorem}
+
+\begin{proof}
+  Call two Cauchy sequences $\b{x_n}$ and $\b{y_n}$ equivalent, iff $\n{x_n-y_n} \to 0$, and let $\wh X$ be the resulting quotient.
+  Since the point-wise sum of two Cauchy sequences is Cauchy, in this natural way we may introduce vector space structure on $\wh X$.
+  The norm on $\wh X$ is introduced as
+  $$ \n{\q{x_n}} := \lim_{n \to \infty} \n{x_n}. $$
+  This map is defined correctly:
+  \begin{enumerate}
+    \item The limit on the right always exists: since $\b{x_n}$ is Cauchy, the sequence $\b{\n{x_n}}$ of reals is Cauchy, which implies it must converge.
+    \item If $[x_n] = [y_n]$, then $\a{\n{x_n}-\n{y_n}} \le \n{x_n-y_n} \xrightarrow[n \to \infty]{} 0.$ Therefore, $\n{[x_n]} = \n{[y_n]}$.
+  \end{enumerate}
+  $X$ is embedded into $\wh X$ by mapping $x \in X$ into the class of the constant sequence at $x$.
+  It is easy to see that this map preserves norms.
+\end{proof}
+
+\begin{theorem}
+  Let $\wh X_2$ be another completion of $X$.
+  Then exists a bijection $f \col \wh X \to \wh X_2$ which is linear, preserves norms,
+  and maps the embedded $X$ into the embedded $X$.   
+\end{theorem}
+
+These two theorems endow us with the right to never consider pathological incomplete spaces.
+
+\begin{proof}
+  Map $[x_n] \in \wh X$ into $\lim x_n \in \wh X_2$.
+\end{proof}
+
+\begin{exercise}
+  The space $C\q{a, b}$ with the norm
+  $\n{f}_2 = \int \a{f}$ is not complete.
+  Define
+  $$
+  f_n(x) = \begin{cases}
+    0, & x \in [a, c], \\
+    n(x-c), & x \in \q{c, c+ 1/n}, \\
+    1, & x \in \q{c+1/n, b}.
+  \end{cases}
+  $$
+  Then $f_n$ is a Cauchy sequence which does not have a limit in $C\q{a, b}$.
+\end{exercise}
+
+\begin{proof}
+  It is easy to see that the limit of $\b{f_n}$ is $[x \ge c]|_{[a, b]}$, so it does not have a continuous limit. Nevertheless, it is Cauchy, since
+  \begin{align*}
+    \n{f_n - f_m}
+    = \frac{1}{2} \a{\frac{1}{n} - \frac{1}{m}}
+    \xrightarrow[\min\b{m,n}\to \infty]{} 0.
+  \end{align*}
+\end{proof}
+
+\section{Equivalent norms}
+
+\begin{definition}
+  We say norms are \emph{equivalent}, iff the metrics they generate are Lipschitz equivalent.
+\end{definition}
+
+\begin{exercise}
+  Norms are equivalent iff they generate the same topology.
+\end{exercise}
+
+\begin{exercise}
+  In infinite-dimensional spaces, there are norms which are not equivalent.
+\end{exercise}
+
+\begin{proof}
+  For example, consider $X = C\q{0, 1}$, $L^1$-norm and the sup-norm on it.
+  It is true that $L^1$-norm does not surpass the sup-norm, but there is no constant for the opposite inequality: we can think of a function with an arbitrarily large sup-norm, but constant integral.
+\end{proof}
+
+\begin{theorem}
+  If $X$ is finite-dimensional, then every two norms on $X$ are equivalent.
+\end{theorem}
+
+\begin{proof}
+  Suppose $\dim X = n$, and $e_1, \dots, e_n$ is a basis.
+  Let $x = a_1 e_1 + \dots + a_n e_n$.
+  Let $\n{\square}$ be a norm on $X$.
+  Define a new \emph{norm} as
+  $$ \a{x} = \sqrt{a_1^2 + \dots + a_n^2}. $$
+  Then
+  \begin{align*}
+    \n{x}
+    & \le \sum_{i = 1}^n \a{a_i} \n{e_i} \\
+    & \le M \sum_{i=1}^n \a{a_i} \\
+    & \le M \p{\sum_{i=1}^n \a{a_i}}^\frac{1}{2} \\
+    & = M \a{x}.
+  \end{align*}
+  
+  The function $x \mapsto \n{x}$ is continuous in the norm $\a{\square}$.
+  Let $\a{x_k - x} \to 0$.
+  Then
+  \begin{align*}
+    \a{\n{x_k}-\n{x}}
+    & \le \n{x_k-x} \\
+    & \le M \sqrt{n} \a{x_k-x} \\
+    & \to 0.
+  \end{align*}
+  
+  Consider the set $S = \b{x \in E \mid \a{x} = 1}$.
+  $S$ is compact in $\a{\square}$.
+  $\phi|_S$ is continuous and nonzero.
+  Then $\phi > \gd$ for some $\gd > 0$, so
+  $$ \n{\frac{x}{\a{x}}} \ge \gd \iff \n{x} \ge \gd \a{x}. $$ 
+\end{proof}
+
+\begin{corollary}
+  Every finite-dimensional normed vector space is complete.
+\end{corollary}
+
+\begin{proof}
+  Every Euclidean space is complete.
+\end{proof}
+
+\begin{corollary}
+  \label{finite-dimensional implies closed}
+  A finite-dimensional subspace of a normed space is closed.
+\end{corollary}
+
+\begin{proof}
+  It is complete, and every convergent sequence is Cauchy sequence.
+\end{proof}
+
+\begin{definition}
+  The set $M \ss X$ is \emph{bounded}, iff
+  $$ \sup_{m \in M} \n{m} < +\infty. $$
+\end{definition}
+
+\begin{lemma}[on an almost-perpendicular]
+  Let $E$ be a normed space, and $F < E$ its closed proper subspace.
+  Then for every $\eps > 0$ exists a vector $x \in E$ such that $\n{x} = 1$ and $\dist(x, F) > 1-\eps$.
+\end{lemma}
+
+\begin{proof}
+  Let $y \in E \sm F$.
+  Then $d = \on{dist}\p{y, F} > 0,$ since $F$ is closed.
+  Let $\gd > 0$.
+  By definition of infimum, there exists $a \in F$ such that
+  $$ d \le \n{y - a} \le d + \gd. $$
+  Put $y_2 = y-a$.
+  Since $a \in F$, $\on{dist}\p{y_2, F} = \dist(y, F) = d$.
+  Define
+  $$ x = \frac{y_2}{d+\gd} = \frac{y-a}{d+\gd}. $$
+  Then $\n{x} \le 1$, but
+  $$ \on{dist}\p{x, F} = \dist\p{\frac{y}{d+\gd}, F} \ge \frac{\dist(y, F)}{d+\gd} = \frac{d}{d+\gd}. $$
+  Since the $\gd$ is arbitrary, and by increasing the norm of $x$ we do not get closer to $F$, we get the desired.
+\end{proof}
+
+\begin{theorem}
+  Let $X$ be a normed space. Equivalent are:
+  \begin{enumerate}
+    \item $X$ is finite-dimensional.
+    \item Every bounded subset of $X$ is relatively compact.
+  \end{enumerate}  
+\end{theorem}
+
+\begin{proof}[Proof of $1 \implies 2$.]
+  From corollary on page \pageref{finite-dimensional implies closed}.
+\end{proof}
+
+\begin{proof}[Proof of $2 \implies 1$.]
+  Suppose $X$ is not finite-dimensional.
+  We assert that there exists a bounded sequence that does not have a convergent subsequence (so in no way the closure of a bounded subset that contains this sequence can be compact).
+  We show this by induction: suppose $x_1, \dots, x_n$ are already built.
+  By the almost-perpendicular lemma there exists $x_{n+1}$ such that
+  $\n{x_{n+1}} = 1$ and
+  $$ \dist\p{x_{n+1}, \Span\b{x_1, \dots, x_n}} > {1}/{2} $$
+  (since $X$ is not finite-dimensional, the span here is a proper subspace of $X$).
+  Continuing to infinity, we get a sequence $\b{x_n}$. It is bounded (all its members are on the unit sphere). Nevertheless, no subsequence of it is Cauchy by construction.
+\end{proof}
+
+\section{Linear operators}
+
+\begin{definition}
+  A linear operator $T \col X \to Y$ is \emph{bounded}, iff $T(B)$ is bounded, where $B$ is the unit ball in $X$.
+\end{definition}
+
+\begin{lemma}
+  Let $X$ and $Y$ be normed vector spaces, and $T \col X \to Y$ a linear operator.
+  The following are equivalent:
+  \begin{enumerate}
+    \item $T$ is continuous.
+    \item $T$ is continuous at 0.
+    \item $T$ is bounded.
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}[Proof of $1 \Leftrightarrow 2$]
+  Let $x \in X$. $T$ is continuous at $x$ iff for every convergent $x_n \to x$ the sequence $Tx_n$ also converges (to $Tx$).
+  Now observe that
+  \begin{align*}
+    \n{Tx_n-Tx}
+    &= \n{T\p{x_n-x}}.
+  \end{align*}
+\end{proof}
+
+\begin{proof}[Proof of $2 \Rightarrow 3$]
+  Consider $$ D = \b{y \in Y \mid \n{y} \le 1}. $$
+  There is $\gd > 0$ such that, if $\n{x} \le \gd$, then $Tx \in D$.
+  Let $z \in D$.
+  Since
+  $$\n{T{\gd z}} \le 1,$$ we have
+  $$ \n{Tz} \le {1}/{\gd}. $$
+\end{proof}
+
+\begin{proof}[Proof of $3 \Rightarrow 1$]
+  Let $\n{x} \le 1$. Then $\n{Tx} \le M$, so $\n{x} < \eps$ implies $\n{Tx} \le M \eps$.
+\end{proof}
+
+\subsection{Operator norm}
+
+\begin{definition}
+  Let $T$ is a continuous operator. Its \emph{norm} is
+  $$ \n{T} = \sup_{x \ne 0} \frac{\n{Tx}}{\n{x}}. $$
+\end{definition}
+
+\begin{exercise}
+  $\n{T}$ is indeed a norm.
+\end{exercise}
+
+\begin{lemma}
+  An operator is bounded iff it has finite norm.
+\end{lemma}
+
+\begin{proof}
+  Obvious.
+\end{proof}
+
+\begin{lemma}
+  A linear combination of continuous operators is continuous.
+\end{lemma}
+
+\begin{proof}
+  \begin{align*}
+    \n{(kA+B)} \le \a{k}\n{A}+\n{B}.
+  \end{align*}
+\end{proof}
+
+\subsection{The space of bounded operators is complete}
+
+\begin{definition}
+  $\mc{B}\p{X, Y}$ is the set of bounded linear operators $X \to Y$ with the obvious structure of a vector space and the standard operator norm as the norm.
+\end{definition}
+
+\begin{theorem}
+  Let $Y$ be complete.
+  Then $\mc{B}\p{X, Y}$ is complete.  
+\end{theorem}
+
+\renewcommand{\B}[2]{\mc{B}\p{{#1}, {#2}}}
+
+{\footnotesize I have seen three quite concise proofs of this theorem and understood neither. Here is a long one, my own.}
+
+\begin{proof}
+  Let $\b{T_n}$ be a Cauchy sequence.
+  Fix $x \in X$.
+  $\b{T_n x}$ is a Cauchy sequence in $Y$:
+  \begin{align*}
+    \n{T_nx - T_mx}
+    &\le \n{T_n-T_m}\n{x} \\
+    &\le \eps \n{x}.
+  \end{align*}
+  By completeness of $Y$, there is a limit $t \xleftarrow[n \to \infty]{} T_n x$.
+  
+  The map $x \mapsto t$ we have just build is a linear operator. Call it $T$.
+  $T_n$ is a Cauchy sequence, so $\n{T_n} \le M$ for some $M$.
+  Then $T$ itself is bounded:
+  \begin{align*}
+    \n{Tx}
+    &\le \n{T_nx}+ \eps\\
+    &\le M \n{x} + \eps.
+  \end{align*}
+  
+  We assert that $\n{T_nx-Tx} \to 0$.
+  Suppose otherwise:
+  \begin{align*}
+    \ex \eps > 0\ \fa n_0 \in \N\ \ex n > n_0\ \ex x \in B \col \n{T_n x - Tx} > \eps.
+  \end{align*}
+  Since $\b{T_n}$ is Cauchy,
+  \begin{align*}
+    \fa \gd > 0\ \ex n_1 \in \N\ \fa k, l > n_1\ \fa x \in B \col \n{T_kx-T_lx} \le \gd.
+  \end{align*}
+  Fix this $\gd > 0$ and take the corresponding $n_1$.
+  From the first line with quantifiers, there exist $n > n_1$ and $x \in B$ such that
+  $$ \n{T_n x - Tx} > \eps. $$
+  From the second one, for any $m > n_1$ we get
+  \begin{align*}
+    \n{T_n x - Tx}
+    &\le \n{T_nx - T_mx} + \n{T_mx-Tx} \\
+    &\le \gd + \n{T_mx-Tx}.
+  \end{align*}
+  Since $Tx = \lim_{m \to \infty} T_mx$, there is $m_0$ such that $\n{T_mx-Tx} \le \gd$ for all $m > m_0$.
+  Take $m_1 = \max\b{m_0, n_1}$. Then, for any $m > m_1$,
+  \begin{align*}
+    \n{T_n x - Tx}
+    &\le \gd + \n{T_mx-Tx} \\
+    &\le 2\gd.
+  \end{align*}
+  Now launch $n_1 \to \infty$ and, consequently, $\gd \to 0$. We get a contradiction:
+  \begin{align*}
+    \eps < \n{T_n x - Tx} \le 2\gd.
+  \end{align*}
+\end{proof}
+
+\begin{remark}
+  Our proof does not use the boundedness of operators in the space $\mathcal{B}(X, Y)$.
+\end{remark}
+
+\section{Functionals}
+
+\begin{definition}
+  A \emph{functional} is a linear operator $X \to K$.
+\end{definition}
+
+\begin{definition}
+  The \emph{dual} $X^*$ of $X$ is the space $\mathcal{B}(X, K)$ of continuous functionals.
+\end{definition}
+
+\begin{corollary}
+  $X^*$ is complete.
+\end{corollary}
+
+\begin{proof}
+  Since $K$ is complete in either case.
+\end{proof}
+
+\section{Strong convergence}
+
+\begin{definition}
+  A sequence of operators $T_n \to T$ converges \emph{strongly} or \emph{point-wise}, iff $T_n x \to Tx$ for all $x \in X$. 
+\end{definition}
+
+\begin{proposition}
+  If $\n{T_n - T} \to 0$, then $T_n \to T$ strongly.
+\end{proposition}
+
+\begin{proof}
+  Since
+  \begin{align*}
+    \a{T_nx - Tx}
+    &\le \n{T_n-T}\a{x}.
+  \end{align*}
+\end{proof}
+
+\begin{remark}
+  The converse is not true.  
+\end{remark}
+
+\begin{definition}
+  $l^p = L^p(\N, \#)$ is the space of real-valued sequences which converge in the $L^p$ norm (with respect to the cardinality measure). 
+\end{definition}
+
+\begin{proof}[Proof of the remark]
+  Consider the operators
+  \begin{align*}
+    s_k (c_0, c_1, \dots) = (c_k, c_{k+1}, \dots)
+  \end{align*}
+  on $l^p$. $\n{s_k} = 1$, since there are sequences with a single unit and other elements zero and applying $s_k$ does not lessen the sequence norm anyway.
+  Nevertheless, $s_k \to 0$ pointwise (strongly), since all the sequences in $l^p$ converge.
+\end{proof}
+
