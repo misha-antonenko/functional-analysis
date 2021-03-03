@@ -385,3 +385,246 @@ These two theorems endow us with the right to never consider pathological incomp
   Nevertheless, $s_k \to 0$ pointwise (strongly), since all the sequences in $l^p$ converge.
 \end{proof}
 
+\section{More on Banach spaces}
+
+\begin{theorem}
+  Let $Y$ be complete.
+  Let $\b{T_n} \ss \mc{B}(X, Y)$ be operators with $\sup \n{T_n} < +\infty$, and let $E \ss X$ be dense.
+  Suppose that, for every $e \in E$, the sequence $\b{T_ne} \ss Y$ converges.
+  Then exists $T \in \mc{B}(X, Y)$ such that $T_n \to T$ pointwise.
+\end{theorem}
+
+\begin{remark}
+  If $\b{T_n}$ converges strongly, then $\sup \n{T_n} < +\infty$.
+  This is a harder fact.  
+\end{remark}
+
+\begin{proof}
+  Define
+  $$ Te := \lim_{n \to \infty} T_n e. $$
+  Let $x\in x$. Take $\b{e_n}$ such that $\n{e_n-x} \xrightarrow[n\to\infty]{} 0$.
+  We assert $T$ can be continued to a bounded operator $X \to Y$.
+  
+  $\b{Te_n}$ is Cauchy.
+  \begin{align*}
+    \n{Te_k-Te_k}
+    &\le \n{Te_j-T_ne_j} + \n{T_ne_j-T_ne_k}+\n{Te_k-T_ne_k} \\
+    &< 2\eps + \n{T_ne_j-T_ne_k} \\
+    &\le 2\eps + \n{T_n}\n{e_j-e_k} \\
+    &\xrightarrow[\substack{n\to \infty\\ \min\b{j,k}\to\infty}]{} 0.
+  \end{align*}
+\end{proof}
+
+\begin{theorem}
+  Let $X$ and $Y$ be normed spaces, and $Y$ complete.
+  Let $F$ be dense in $X$.
+  Let $T \col F \to Y$ be a continuous linear operator.
+  Then exists unique $T_\sharp  \in \mc{B}(X, Y)$ such that $\n{T_\sharp} = \n{T}$ and $T_\sharp|_F = T$. 
+\end{theorem}
+
+\begin{proof}
+  Let $x \in X$, $f_n \in F$, $\n{f_n-x} \to 0$.
+  Then
+  \begin{align*}
+    \n{Tf_n - Tf_m}
+    &\le \n{T} \n{f_n-f_m} \\
+    &\xrightarrow[\min\b{m,n} \to \infty] 0.
+  \end{align*}
+  Hence $\b{Tf_n}$ is a Cauchy sequence and, as such, converges to some $y$.
+  Define
+  $$ T_\sharp x = y. $$
+  This definition does not depend on the choice of the sequence.
+\end{proof}
+
+\section{Three fundamental principles of functional analysis}
+
+\begin{enumerate}
+  \item Hanh-Banach theorem.
+  \item Closed graph and open map theorems.
+  \item The principle of uniform boundedness.
+\end{enumerate}
+
+
+\section{Hanh-Banach theorem}
+
+\begin{definition}
+  Let $X$ be a vector space over $K$, $p \col X \to \R$.
+  It is said that $p$ is a \emph{seminorm}, iff
+  \begin{enumerate}
+    \item $p(x) \ge 0$.
+    \item $\a{k}p(x) = p(kx)$ for all $k \in K$.
+    \item $p(x+y) \le p(x)+p(x)$.
+  \end{enumerate}
+\end{definition}
+
+\begin{example}
+  Consider $X = C\p{\R}$ and $p(f) = \int_0^1 \a{f}$. Then $p$ is a seminorm, but not a norm, since there is a nonzero function, which is zero on $[0, 1]$.
+\end{example}
+
+\begin{definition}
+  Let $X$ be a $K$-vector space. A $p \col X \to \R$ is a \emph{sublinear functional}, iff
+  \begin{enumerate}
+    \item $p(x+y) \le p(x)+p(y)$.
+    \item $p(kx) = \a{k}p(x)$ for all $k \in K$.
+  \end{enumerate}
+\end{definition}
+
+\begin{theorem}[Hanh, Banach]
+  Let $X$ be a real vector space, $p \col X \to \R$ a sublinear functional.
+  Let $Y \le X$ and $f \col Y \to \R$ a linear functional such that $f(y) \le p(y)$ for all $y \in Y$.
+  Then exists $F \col X \to \R$ such that $F|_Y = f$ and $F(x) \le p(x)$ for all $x \in X$.
+\end{theorem}
+
+\begin{lemma}[Hanh-Banach in codimesion 1]
+  Ler $x_0 \in X \sm Y$.
+  Let $Y_\sharp = Y + \Span\b{y_0}$.
+  Then $f$ can be continued to a linear functional on $f_\sharp  \col Y_\sharp \to \R$ such that $f_\sharp \le p$ on $Y_\sharp$.
+\end{lemma}
+
+\begin{proof}
+  Let $y \in Y_\sharp$, $y \in Y$, $\ga \in \R$.
+  
+  We assert a $c \in \R$ can be chosen in such a way that
+  $$ f_\sharp(y+\ga y_0) := f(y) + \ga c $$
+  satisfies
+  \begin{equation}
+    \label{j1}
+    f_\sharp \le p \iff f(y)+\ga c \le p\p{y+\ga y_0}.
+  \end{equation}
+  
+  If $\ga = 0$, the inequality is satisfied.
+  
+  Suppose $\ga > 0$.
+  Divide \eqref{j1} through by $\ga$:
+  $$ f\p{\frac{y}{\ga}} + c \le p\p{\frac{y}{\ga}+y_0}. $$
+  This rewrites as
+  $$ p\p{y_1+y_0} - f\p{y_1} \ge c, $$
+  where $y_1= {y}/{\ga}$.
+  
+  Suppose $\ga < 0$. Dividing \eqref{j1} through by $-\ga$, we get
+  $$ f\p{y_2}-p\p{y_2-y_0} \le c, $$
+  where $y_2 = -y/\ga$.
+  
+  Now, if we show that
+  $$ f\p{y_2}-p\p{y_2-y_0} \le p\p{y_1+y_0} - f\p{y_1}, $$
+  we are done by the Cantor-Dedekind axiom. But that trivially follows from the triangle inequality for $p$ and linearity of $f$.
+\end{proof}
+
+\begin{proof}[Proof of the theorem of Hanh and Banach in the general case]
+  Consider the set
+  $$ A = \b{(M, f_M) \mid Y \le M \le X,\ f_M \col M \to \R \text{ is a linear functional},\ f_M \le p}. $$
+  We tell that $(M, f_M) \le (N, f_N)$, iff $M \le N$ and $f_N|_M = f_M$.
+  The union of any chain is its supremum; we have a maximal element $(L, F)$.
+  We assert that $L = X$.
+  
+  Suppose otherwise, and let $y_0 \in X \sm L$.
+  Define $L_\sharp = L + \Span\b{y_0}$.
+  By the lemma, there exists $F_\sharp \col L_\sharp \to \R$ such that $F_\sharp \le p.$
+  But then $(L_\sharp, F_\sharp) \ge (L, F)$. 
+\end{proof}
+
+\newcommand{\cB}[0]{\mc{B}}
+
+\subsection{Useful corollaries}
+
+\begin{corollary}
+  Let $Y \le X$ and $f \in \mc{B}(Y, \R)$. Then there exists $F \col X \to \R$ such that $F|_Y = f$ and $\n{F} = \n{f}$.
+\end{corollary}
+
+\begin{proof}
+  Let $p(x) = \n{f} \n{x}$. Then $f(y) \le p(y)$ for all $y \in Y$.
+  Take $F$ as in the HB theorem.
+  Then
+  $$ F(x) \le \n{f} \n{x}. $$
+  Likewise, taking the $-F$ for $-f$, we get
+  $$ \n{F} \le \n{f}. $$
+  The converse inequality is evident.
+\end{proof}
+
+\begin{corollary}
+  Let $Y \le X$, $x_0 \in X \sm Y$. Then exists $F \in X^*$ such that $\n{F} \le 1$, $F|_Y = 0$, and $F\p{x_0} = \dist\p{x_0, Y}$.
+\end{corollary}
+
+\begin{proof}
+  Define $p(x) = \dist(x, Y)$.
+  Since $Y$ is closed, $d := p(x_0) > 0$.
+  Define
+  $$ f(y+\ga x_0) := \ga d. $$
+  Then $f \le p$, and exists $F \col X \to \R$ such that $F|_L = f|_L$ and $F \le p$.
+  In particular, $F|_Y = 0$ (what we need) and $F(x_0) = d$.
+  Observe that the same applies to $-f$, and so $\n{F(x)} \le p(x) \le \n{x}$.
+  Hence $\n{F} \le 1$.
+\end{proof}
+
+\begin{corollary}
+  Let $x_0 \in X$. Then exists $F \in X^*$ such that $\n{F(x_0)} = \n{x_0}$ and $\n{F} = 1$.
+\end{corollary}
+
+\begin{proof}
+  The case $Y = \b{0}$ of the previous corollary.
+\end{proof}
+
+\section{Banach limits}
+
+\begin{definition}
+  Let $c \le l^\infty$ be the space of convergent subsequences.
+  A map $L \col l^\infty \to \R$ is a \emph{Banach limit}, iff
+  \begin{enumerate}
+    \item It is a continuous linear functional.
+    \item For all $x = \b{x_n} \in c$, $$ Lx = \lim x_n. $$
+    \item If $x \ge 0$, then $Lx \ge 0$.
+    \item $L\b{x_{n+1}} = L\b{x_n}$.
+  \end{enumerate}
+\end{definition}
+
+\begin{theorem}
+  $L$ exists.
+\end{theorem}
+
+\begin{proof}
+  Put, for $x = \b{x_n}$,
+  $$ f(x) = \lim x_n. $$
+  $f \col c \to \R$ is a linear functional.
+  Define a majoring sublinear functional (exercise) as
+  $$ p(x) = \limsup \frac{1}{n} \sum_{i=1}^n x_i. $$
+  Observe that $p|_c = f$, so $f \le p$.
+  By HB, we have $L \col l^\infty \to \R$, which, luckily, satisfies the definition of Banach limit:
+  \begin{enumerate}
+    \item $L|_c = f$.
+    \item If $x \le 0$, then $Lx \le p(x) \le 0$.
+    \item Put $x'_i = x_{i+1}-x_i$. By linearity of $L$, it is sufficient to show that $L\b{x'_n} = 0$. And indeed,
+      $$ p(x') = \lim \frac{1}{n} \sum_{i=1}^n \p{x_{n+1}-x_n} = 0. $$
+  \end{enumerate}
+\end{proof}
+
+\subsection{The complex case}
+
+\begin{definition}
+  Let $c \le l^\infty(\C)$ be the space of convergent subsequences.
+  A map $L \col l^\infty \to \C$ is a \emph{Banach limit}, iff
+  \begin{enumerate}
+    \item It is a continuous linear functional.
+    \item For all $x = \b{x_n} \in c$, $$ Lx = \lim x_n. $$
+    \item If $x \in \R$ and $x \ge 0$, then $Lx \ge 0$.
+    \item $L\b{x_{n+1}} = L\b{x_n}$.
+    \item $\n{L} = 1$.
+  \end{enumerate}
+\end{definition}
+
+\begin{proof}
+  Let $L$ be a real Banach limit.
+  For $a, b \in l^\infty(\C)$, define
+  $$ L(a+ib) := La + iLb. $$
+  All of the properties now follow trivially from those of real limits, except the final one.
+  
+  Simple functions are dense in $l^\infty$, so we may prove the statement for them and be happy after using continuity of $L$.
+  Let $x = \sum \ga_k \chi_{E_k}$ for some partition $\bigsqcup_{k \in \N} E_k = \N$, and $\a{\ga_\s} \le 1$.
+  Then $Lx = \sum \ga_k L\chi_{E_k}$, and
+  \begin{align*}
+    \a{Lx}
+    &\le \sum_{k \in \N} L\p{\chi_{E_k}} \\
+    &= L\p{\chi_{\sqcup E_k}} \\
+    &\le 1,
+  \end{align*}
+  which was asserted.
+\end{proof}
