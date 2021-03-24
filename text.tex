@@ -542,6 +542,7 @@ These two theorems endow us with the right to never consider pathological incomp
 \end{proof}
 
 \begin{corollary}
+  \label{a point and a linear subspace can be separated}
   Let $Y \le X$, $x_0 \in X \sm Y$. Then exists $F \in X^*$ such that $\n{F} \le 1$, $F|_Y = 0$, and $F\p{x_0} = \dist\p{x_0, Y}$.
 \end{corollary}
 
@@ -562,6 +563,35 @@ These two theorems endow us with the right to never consider pathological incomp
 
 \begin{proof}
   The case $Y = \b{0}$ of the previous corollary.
+\end{proof}
+
+\begin{corollary}
+  Let $X$ be a normed space, $M \le X$.
+  Then
+  $$ \Cl M = \bigcap \b{ \ker f \mid f \in X^*,\ M \ss \ker f }. $$  
+\end{corollary}
+
+\begin{proof}
+  Let $N$ denote the intersection.
+  Since $N$ is closed as an intersection of closed sets, $\Cl M \ss N$.
+  We now show that $\ol{\Cl M} \ss \ol{N}$.
+  Let $x_0 \not\in \Cl M$.
+  By a corollary from page \pageref{a point and a linear subspace can be separated}, there exists a functional $f \on X^*$ such that $\n{f} \le 1$, $M \ss \ker f$ and $f(x_0) = \dist(x_0, M)$.
+  $f$ participates in the intersection on the right, but its kernel does not contain $x_0$.
+  Therefore, $x_0 \not\in N$, as asserted.
+\end{proof}
+
+\begin{corollary}
+  Let $X$ be a normed space, $M \le X$.
+  The following conditions are equivalent:
+  \begin{enumerate}
+    \item $M$ is dense.
+    \item For every functional $f \in X^*$, if $M \ss \ker f$, then $f = 0$.
+  \end{enumerate}
+\end{corollary}
+
+\begin{proof}
+  This is a reformulation of the previous theorem.
 \end{proof}
 
 \section{Banach limits}
@@ -611,6 +641,10 @@ These two theorems endow us with the right to never consider pathological incomp
   \end{enumerate}
 \end{definition}
 
+\begin{theorem}
+  $L$ exists.  
+\end{theorem}
+
 \begin{proof}
   Let $L$ be a real Banach limit.
   For $a, b \in l^\infty(\C)$, define
@@ -627,4 +661,732 @@ These two theorems endow us with the right to never consider pathological incomp
     &\le 1,
   \end{align*}
   which was asserted.
+\end{proof}
+
+\section{Complex Hanh-Banach}
+
+Let $K = \C$.
+
+\begin{definition}
+  Let $Z$ be a complex vector space.
+  We denote by $Z^\star$ the space of bounded linear functionals $Z \to \C$.
+\end{definition}
+
+\begin{lemma}
+  A functional $f \in Z^\star$ can be recovered from its real or imaginary part.
+\end{lemma}
+
+\begin{proof}
+  Let $f = u +iv$. Since $f$ is linear over $\C$, we may write
+  $$ if(x) = iu(x)-v(x) = f(ix) = u(ix)-iv(ix). $$
+  Since $1$ and $i$ are a basis, we infer from here that
+  $$ -v(x) = u(ix). $$
+\end{proof}
+
+\begin{theorem}[Hanh-Banach, the complex version]
+  Let $X$ be a complex normed space, $Y \le X$.
+  Let $p \col X \to \R$ be a seminorm.
+  Let $f \in Y^\star$ be a linear functional such that $\a{f} \le p$.
+  Then exists a functional $F \in X^\star$ such that $F|_Y = f$ and $\a{F} \le p$.
+\end{theorem}
+
+\begin{proof}
+  Let $f \in Y^\star$ and $u = \Re f$.
+  $u$ is a real linear functional on $Y$.
+  By the real HB, exists a functional $U \in X^*$ such that $U|_Y = u$ and $\a{U(x)} \le p(x)$ for all $x \in X$.
+  Define
+  $$ F(x) := U(x) - iU(ix). $$
+  This is a complex functional on $X$, and $F|_Y = f$.
+  We assert that $\a{F} \le p$.
+  Let $r \in C$ be such that
+  $$ \a{F(x)} = r F(x) $$
+  and $\a{r} = 1$.
+  Then $$ \a{F(x)} = F(rx) = U(rx) \le p(rx) = \a{r} p(x) = p(x), $$
+  what was to be shown.
+\end{proof}
+
+
+\section{Quotient spaces}
+
+\begin{definition}
+  Let $X$ be a normed space, $M \le X$.
+  On $X/M$ we can introduce a norm:
+  $$ \n{[x]} := \dist(x, M). $$
+  In this section, we preserve this naming, using, furthermore, $[\s]$ or $q \col X \to X/M$ for the canonical projection. (And of course, we use choice throughout.)
+\end{definition}
+
+\begin{lemma}
+  This is indeed a norm.
+\end{lemma}
+
+\begin{proof}
+  ~\begin{enumerate}
+    \item \emph{Homogeneity.} $x = x'+m$ for some $m \in M$, $x' \in \ol M$.
+    $m$ is the closest to $x$ point of $M$: for any other $m_1$ we have
+    $$ \n{x-m_1} = \n{x'+m-m_1} \ge \n{m-m_1}+\n{x'}. $$ 
+    Then
+    $$ \n{[kx]} = \n{kx-m} = \a{k} \n{x'} = \a{k} \n{[x]}. $$
+    \item \emph{Triangle inequality}. Since
+    $$ \n{x+y-m} \le \n{x-m/2} + \n{y-m/2}. $$
+    \item \emph{Nonzero on nonzero vectors.} By closedness of $M$.
+    \item \emph{Zero on the zero vector.} As $0 \in M$.
+  \end{enumerate}
+\end{proof}
+
+\begin{lemma}
+  $\n{[x]} \le \n{x}$ for all $x \in X$.
+\end{lemma}
+
+\begin{proof}
+  $\dist(x, M) \le \n{x}$.
+\end{proof}
+
+\begin{lemma}
+  If $X$ is complete, then $X/M$ is.
+\end{lemma}
+
+\begin{proof}
+  Let $\b{[x_n]}$ be a Cauchy sequence.
+  There exists a subsequence $\b{x_{n_k}}$ such that
+  $$ \n{\q{x_{n_k}-x_{n_{k+1}}}} < 2^{-k}. $$
+  Let $\b{y_k}$ be a sequence in $M$ such that
+  $$ \n{x_{n_k}+y_k-x_{n_{k+1}}-y_{k+1}} < 2^{1-k} $$
+  (it exists by the previous inequality and the definition of distance).
+  Then $\b{x_{n_k}-y_k}$ is a Cauchy sequence (\textbf{exercise}).
+  Since $X$ is complete, it converges to some $x_*$.
+  Then
+  $$ \q{x_{n_k}} \to [x_0] $$
+  by the previous lemma.
+\end{proof}
+
+\begin{lemma}
+  Let $W \ss X/M$.
+  $q^{-1}(W)$ is open iff $W$ is open.
+\end{lemma}
+
+Hence the norm topology we have introduced equals the usual quotient topology.
+
+\begin{proof}[$\Leftarrow$]
+  Let $[x] \in W \ss X/M$.
+  We want to find a neighbourhood $U \ni x$ such that $[U] \ss W$.
+  
+  Since $W$ is open,
+  there exists $\eps > 0$ such that, if $\n{[y]-[x]}$, then $qy \in W$.
+  
+  That is, if $\dist(y, x) < \eps$, then $y \in q^{-1}(U)$; as needed.
+\end{proof}
+
+\begin{proof}[$\Rightarrow$]
+  Suppose that $q^{-1}(W)$ is open.
+  Let $[x] \in W$.
+  We want to find a ball around $[x]$ that would lie in $W$.
+  There is one around $x$ that lies in $q^{-1}(W)$: for all $y$ with $\n{y-x}<$ some $\eps > 0$ we have $y \in q^{-1}(W)$.
+  This implies, in particular, that
+  $$ \n{[y]-[x]} \le \n{y-x} < \eps. $$
+\end{proof}
+
+\begin{lemma}
+  Let $U \ss X$.
+  Then $qU$ is open.
+\end{lemma}
+
+That is, $q$ is open.
+
+\begin{remark}
+  The converse is not necessarily true.  
+\end{remark}
+
+\begin{proof}
+  Sufficient to show that
+  $ \text{$q^{-1}\p{qU}$ is open}. $
+  In fact,
+  $$ q^{-1}(qU) = \bigcup_{y \in M}(U+y). $$
+\end{proof}
+
+\subsection{Annulator}
+
+\begin{definition}
+  Let $M \le X$, as before.
+  Its \emph{annulator} is the set
+  $$ M^\perp = \b{f \in X^* \mid M \ss \ker f}. $$
+\end{definition}
+
+\begin{theorem}
+  There exists a linear isometry
+  $$ \gr \col X^*/M^\perp \longrightarrow M^*, $$
+  defined by
+  $$ \gr \col [f] \longmapsto f|_M. $$
+\end{theorem}
+
+\begin{proof}
+  Let $[f] \in X^*/M^\perp$.
+  
+  The $\gr$ defined is indeed a bijective function, since
+  for every $g \in M$ we have
+  \begin{align*}
+    f \sim g
+    &\iff f-g \sim 0 \\
+    &\iff f-g \in M^\perp \\
+    &\iff \p{f-g}|_M =0 \\
+    &\iff f|_M = g|_M.
+  \end{align*}
+
+  This function does map into $M^*$:
+  $f|_M \in M^*$ (a restriction of a linear function onto a linear subspace is linear; a restriction of a continuous function is continuous).
+  
+  We show that it is an isometry.
+%  One way:
+%  \begin{align*}
+%    \n{[f]}
+%    &= \dist\p{f, M^\perp} \\
+%    &= \inf \b{ \n{f-g} \mid g|_M = 0 } \\
+%    &\ge \inf \b{ \n{\p{f-g}|_M} \mid g|_M = 0 } \\
+%    &= \inf \b{ \n{f|_M} \mid g|_M = 0 } \\
+%    &= \n{f|_M}.
+%  \end{align*}
+  Let $\gl \in M^*$. By HB there exists $\Lambda \col X \to K$ such that $\Lambda|_M = \gl$ and $\n{\Lambda} = \n{\gl}$. But $\Lambda$ gets mapped into $\gl$ by $\rho$, and $\rho$ is bijective.
+\end{proof}
+
+\newcommand{\Gl}[0]{\Lambda}
+
+\begin{theorem}
+  There exists a linear isometry
+  $$ \p{X / M }^* \longleftrightarrow M^\perp $$
+  defined by
+  $$ \rho \col f \longmapsto f \circ Q. $$
+\end{theorem}
+
+\begin{proof}
+  Let $\gl \in \p{X/M}^*$, and let $\Lambda := \rho(\gl).$ 
+  Since the norm of the composition does not surpass the product of norms, we have
+  $$ \n{\Lambda} \le \n{\gl}. $$
+  Also, note that
+  $ \Lambda_|M  = 0. $
+  
+  Let $\Lambda \in M^\perp$.
+  Define $\gl[x] := \Lambda x$. 
+  Then $\n{\gl} = \n{\Gl}$: (1) obviously, $\n{\gl} \le \n{\Gl}$; (2) the other inequality has been shown.
+\end{proof}
+
+\section{Separability of duals}
+
+\begin{theorem}
+  Let $X$ be normed and $X^*$ separable.
+  Then $X$ is separable.
+\end{theorem}
+
+\begin{example}
+  The converse is false.
+  Let $X = l^1$. Then $\p{l^1}^* \cong l^\infty$. But $l^1$ is separable, while $l^\infty$ is not.
+\end{example}
+
+\begin{proof}
+  Let $\b{f_j}$ be a dense sequence in the unit sphere of $X^*$.
+  Such exists by hypothesis.
+  
+  By definition of norm in the dual, there is a sequence $\b{x_j} \in X$ with $\n{x_j} = 1$ and $\a{f_j(x_j)} \ge 1 - \eps_j$ for all $j$.
+  
+  Let $M = \Cl \Span \b{x_j}$. By definition, this is a separable space.
+  
+  Let $y\not\in M$. By one of corollaries of HB there exists $f \in X^*$ such that $f|_M = 0$, $f(y) \ne 0$, $\n{f} = 1$.
+  
+  Since $\b{f_j}$ is dense, there exists a convergent subsequence $g_k$ of $\b{f_j}$: $g_k \to f$ .
+  Assume that $\a{g_k(x_k)} \ge 1/2$. 
+  Then
+  \begin{align*}
+    \a{f(g_k)}
+    &= \a{f(x_k) - g_k(x_k) + g_k(x_k)} \\
+    &\ge \a{g_k(x_k)} - \a{f(x_k)-g_k(x_k)} \\
+    &\ge 1/2 - o(1).
+  \end{align*}
+  This is in contradiction to $f|_M = 0$.
+\end{proof}
+
+\section{Open map and closed graph theorems}
+
+\begin{theorem}[on an open map]
+  Let $X$ and $Y$ be Banach and $A \in \mc{B}(X, Y)$.
+  Then $A$ is open.
+\end{theorem}
+
+The proof spans several lemmas.
+
+Let $B_r \ss X$ be the ball of radius $r > 0$ with centre at $0$.
+
+\begin{lemma}
+  $0 \in \Int \Cl A(B_1)$.
+\end{lemma}
+
+\begin{proof}
+  Observe that
+  $$ Y = \bigcup_{n \ge 1} \Cl A(B_n). $$
+  By Baire's theorem, one of the sets in the union has non-empty interior.
+  But as they are all homothetic, this is true for any of them.
+  Suppose $y_0$ lies in $V := \Int \Cl A(B_1)$ together with a ball $B$ around it of radius $\gd$.
+  
+  Let $\b{x_n}$ be such that $\n{x_n} < 1$ and $Ax_n \to y_0$ (such exists, since $y_0$ is in the closure).
+  
+  For sufficiently small $y$, $y_0 + y \in \Cl A(B_1)$.
+  
+  There exists $\b{z_n}$ such that $\n{z_n} < 1$ and $Az_n \to y_0 + y$.
+  $A(z_n-x_n) \to y$.
+  Since $z_n, x_n \in B_1$, $z_n-x_n \in B_2$.
+  The last two sentences say exactly that
+  $$ y \in \Cl A(B_2). $$
+  This holds for sufficiently small $y$, which is equivalent to saying that
+  $$ 0 \in \Int \Cl A(B_1). $$
+\end{proof}
+
+\begin{lemma}
+  $\Cl A(B_1) \ss A(B_2)$.
+\end{lemma}
+
+\begin{proof}
+   Let $y_1 \in \Cl A(B_1)$.
+   $0 \in \Int \Cl A(B_{1/2})$.
+   Since in every neighbourhood of $y_1$ there are points from $A(B_1)$,
+   $$ \p{y_1-\Cl A(B_{1/2})} \cap A(B_1) \ne \naught. $$
+   That is, exists $x_1 \in B_1$ such that
+   $$ Ax_1 \in y_1 - \Cl A(B_{1/2}). $$
+   For some $y_2 \in \Cl A(B_{1/2})$,
+   $$ Ax_1 = y_1-y_2. $$
+   Likewise, 
+   $$ \p{y_2-\Cl A(B_{1/4})} \cap A(B_{1/2}) \ne \naught. $$
+   Continuing to infinity, we get a sequence $\b{x_n}$ such that
+   $$ \n{x_n} \le 2/2^n, $$
+  and a sequence $\b{y_n}$ such that $y_n \in \Cl A\p{B_{2/2^n}}$ and
+   $$ Ax_n = y_n-y_{n+1}. $$
+   Let $x := \sum x_n$ --- by completeness of $X$, this vector indeed exists and has norm $< 2$.
+   By continuity of $A$, $y_1 = Ax \in A(B_2)$.
+\end{proof}
+
+\begin{proof}[Proof for the open graph theorem]
+  Summing the two lemmas, we get
+  $$ 0 \in \Int \Cl A(B_1) \ss \Int A(B_1). $$
+  This finishes the proof, since
+  $$ \n{Ax-Ax_0} < \eps \iff \n{A(x-x_0)} < \eps. $$
+\end{proof}
+
+\subsection{Inverse function theorem}
+
+\begin{theorem}[inverse function theorem]
+  Let $X$ and $Y$ be Banach and $A \in \mc{B}(X, Y)$ a bijection.
+  Then $A^{-1}$ is linear and continuous.
+\end{theorem}
+
+\begin{proof}
+  $A^{-1}$ is linear anyway.
+  Continuity is a direct corollary of the open map theorem.
+\end{proof}
+
+\section{Closed graph theorem}
+
+\begin{definition}
+  If $X$ and $Y$ are normed spaces, their coproduct has the following structure of a normed space:
+  $$ \n{x \oplus y} := \n{x} + \n{y}. $$
+\end{definition}
+
+\begin{lemma}
+  Let $A \col X \to Y$ be a linear operator. Its graph is closed iff for any sequence $x_n \to 0$ such that the limit $\lim Ax_n$ exists, $Ax_n \to 0$.
+\end{lemma}
+
+\begin{remark}
+  The difference with continuity is that we do not expect that $\b{Ax_n}$ will automatically converge.
+  The closed graph theorem tells it will in complete spaces.
+\end{remark}
+
+\begin{proof}[$\Rightarrow$.]
+  As the graph is closed, there is some $x$ so that $(x_n, Ax_n) \to (x, Ax)$.
+  $$ \n{x_n-x}+\n{A(x_n-x)} \to 0. $$
+  Then
+  $$ \n{x_n-x}, \n{A(x_n-x)} \to 0. $$
+  Since the sequence limit is unique, $x = 0$.
+  Then $\n{Ax_n} \to 0$.
+\end{proof}
+
+\begin{proof}[$\Leftarrow$.]
+  Let $(x_n, Ax_n) \to (x, y)$. We assert that $y = Ax$.
+  Indeed,
+  $$ \n{x_n-x}+\n{Ax_n-y} \to 0 $$
+  implies that $x_n-x \to 0$.
+  But then $A(x_n-x) \to 0$ by hypothesis, and so
+  $$ \n{Ax_n -Ax} \to 0. $$
+  By uniqueness of limits, $y = Ax$.
+\end{proof}
+
+\begin{theorem}[the closed graph theorem]
+  Let $X$ and $Y$ be complete, $A \col X \to Y$ linear.
+  If the graph of $A$ is closed, then $A$ is continuous.
+\end{theorem}
+
+The converse is obvious.
+
+\begin{proof}
+  $X \otimes Y$ is complete.
+  Let $G$ be the graph of $A$.
+  Let $P \col G \to X$ be defined as 
+  $$ P(x, Ax) := x. $$
+  $P$ is a bijection.
+  The inverse function theorem says that $P^{-1}$ is continuous.
+  Let $Q \colon G \to X$ be defined as
+  $$ Q(x, Ax) := Ax. $$
+  Then $Q$ is continuous.
+  Then $A = Q P^{-1}$ is continuous.
+\end{proof}
+
+\subsection{Why is the closed graph theorem important}
+
+\begin{lemma}
+  Let $\phi \in L^p$.
+  Define a linear $M \col L^p \to L^p$ as
+  $ M f := \phi \cdot f$.
+  Suppose that $\im M \ss L^p$.
+  Then $M$ is bounded.
+\end{lemma}
+
+\begin{proof}
+  We check that the graph of $M$ is closed.
+  Let $f_n \to 0$ in $L^p$ and $\phi f_n \to g$.
+  By Hölder's inequality, the sequence $\phi f_n$ also converges to 0.
+\end{proof}
+
+\subsection{Sobolev spaces}
+
+\begin{definition}[Sobolev spaces]
+  The normed space $W^n_p[a, b]$ consists of $f \in C^{n-1}[a,b]$ with the norm
+  $$ \n{f}_{W^n_p} := \p{\sum_{k=0}^n \n{f^{(k)}}_{L^p}^p}^{\frac{1}{p}}. $$
+\end{definition}
+
+\begin{lemma}
+  This is a complete space.
+\end{lemma}
+
+\begin{theorem}
+  Let $M \col f \mapsto \phi \cdot f$ for some $\phi \in W^n_p$. Then $M$ is bounded.
+\end{theorem}
+
+\begin{proof}
+  Let $f_n \to 0$ and $\phi f_n \to g$.
+  Then $f_n \to 0$ pointwise. 
+  Then $\phi f_n \to 0$ pointwise, which implies $g = 0$.
+\end{proof}
+
+\subsection{Complementary spaces}
+
+\begin{definition}
+  Let $X$ be Banach.
+  Let $M, N \le X$ be closed spaces.
+  The $M$ and $N$ are said to be \emph{algebraically complementary}, iff
+  $$ M+N=X \qquad\text{and}\qquad M \cap N = \b{0}. $$
+  They are \emph{topologically complementary}, iff, in addition,
+  $$ \n{x \oplus y} \sim \n{x}+\n{y} $$
+  for all $x \in M$ and $y \in N$ (that is, these norms are equivalent on $M \otimes N \cong X$.
+\end{definition}
+
+\begin{theorem}
+  If $X$ is Banach and $M, N \le X$ are algebraically complementary, then $M$ and $N$ are topologically complementary.
+\end{theorem}
+
+\begin{proof}
+  The map
+  $$ x + y \mapsto x \otimes y $$
+  is an isomorphism of $M+N$ and $M \otimes N$.
+  The norms $\n{x}+\n{y}$ and $\n{x+y}$ are equivalent.
+  The inverse map is continuous by the inverse function theorem; hence Lipschitz.
+  Together with the triangle inequality, this gives the equivalence of norms.
+\end{proof}
+
+\section{Uniform boundedness principle}
+
+\begin{theorem}[uniform boundedness principle]
+  Let $X$ be Banach and $Y$ normed.
+  Let $A \ss \mc{B}(X, Y)$.
+  $A$ is bounded
+  iff
+  $$ \fa x \in X \col  \sup_{a \in A} \n{ax} < \infty. $$
+\end{theorem}
+
+\begin{proof}
+  If $A$ is bounded, this is trivially true. We prove the converse.
+  
+  Let
+  $$ Q_n := \b{x \in X \mid \fa a \in A \col \n{ax} \le n }. $$
+  $Q_n$ is closed as an intersection of closed spaces (all $a$ are continuous).
+  By Baire's theorem, $\bigcap Q_n$ has non-empty interior.
+  Let $x_0 \in \bigcap Q_n$ be such that
+  $$ \n{a(x_0+x)} \le 1 $$
+  whenever $\n{x} < r$ for all $a \in A$.
+  Then
+  $$ \n{ax} \le 1 + \n{ax_0} $$
+  for all $a \in A$.
+  This implies
+  $$ \sup_{\n{x} < n} \n{ax}  < +\infty. $$
+\end{proof}
+
+\begin{corollary}
+  Let $X$ be normed, $A \ss X$.
+  $A$ is bounded iff, for every $f \in X^*$, $f(A)$ is bounded.
+\end{corollary}
+
+\begin{proof}
+  The dual is complete.
+  Put $X \from X^*$ and $Y \from X$. 
+\end{proof}
+
+\begin{theorem}
+  Let $X$ be Banach, $Y$ normed, and $A \ss \mc{B}(X, Y)$.
+    $A$ is bounded iff
+    $$ \fa x \in X\ \fa g \in Y^* \col \sup_{a \in A} \a{gax} < \infty. $$  
+\end{theorem}
+
+\begin{proof}
+  $A$ is bounded iff $gA$ is bounded for every $g$ iff
+  $$ \fa g \in X^*\ \fa x \in X \col \sup_{ga \in gA} \a{gax} < \infty $$
+  iff
+  $$ \fa g \in X^*\ \fa x \in X \col \sup_{a \in A} \a{gax} < \infty. $$
+\end{proof}
+
+\section{Banach-Steinhaus theorem}
+
+\begin{theorem}
+  Let $X, Y$ be Banach spaces.
+  Let $A_n \in \mc{B}(X, Y)$.
+  Suppose $A_n x$ converges in $Y$ for all $x \in X$.
+  Then
+  $$ \sup_n \n{A_n} < \infty, $$
+  and exists $A \in \mc{B}(X, Y)$ such that
+  $$ \n{A_n x - Ax} \to 0 $$
+  for all $x \in X$.
+\end{theorem}
+
+\begin{proof}
+  Put $Ax := \lim\p{A_n x}$.
+  If $A_n x$ converges for all $x$, then $A_n x$ is bounded in $Y$ for all $x$.
+  Then $\b{A_n}$ is bounded, and so
+  $$ \n{Ax} \le \sup_{n} \n{A_n} \n{x}. $$ 
+\end{proof}
+
+\section{Inner products}
+
+\begin{definition}
+  Let $H$ be a vector space over $K$.
+  An \emph{inner product} on $H$ is a map $\i{\s,\s} \col H^2 \to K$ such that
+  \begin{enumerate}
+    \item $\i{\ga x + \gb, y} = \ga \i{x, y} + \gb$ for all $x, y \in H$ and $\ga, \gb \in K$.
+    \item $\i{x, y} = \ol{\i{y, x}}$ for all $x, y \in H$.
+    \item $\i{x, x} \in \R$ and $\i{x, x} \ge 0$.
+    \item $\i{x, x} = 0$ implies $x = 0$.
+  \end{enumerate}
+\end{definition}
+
+\begin{lemma}[CBS]
+  $$ \a{\i{x,y}} \le \n{x} \n{y}. $$
+\end{lemma}
+
+\begin{proof}
+  Let $\ga \in K$.
+  \begin{align*}
+    0
+    &\le \i{x+\ga y, x+\ga y} \\
+    &= \n{x}^2 + 2 \Re\p{\ga \i{y, x}} + \a{\ga}^2 \n{y}^2.
+  \end{align*}
+  $\ga =: re^{i\phi}$. Choose $\phi$ in such a way that $\ga \i{y, x} \in \R$.
+  The resulting degree 2 polynomial in $r$ has at most one root.
+\end{proof}
+
+\begin{definition}
+  $$ \n{x} := \sqrt{\i{x, x}}. $$
+\end{definition}
+
+\begin{lemma}
+  This is a norm.
+\end{lemma}
+
+\begin{proof}
+  We check triangle inequality.
+  \begin{align*}
+    \n{x+y}^2
+    &\le \p{\n{x}+\n{y}}^2 \\
+    \iff \n{x}^2 + 2 \Re \i{x, y} + \n{y}^2 &\le \n{x}^2 + 2 \n{x}\n{y} + \n{y}^2.
+  \end{align*}
+  This follows from CBS.
+\end{proof}
+
+\begin{lemma}[parallelogram identity]
+  $$ \n{x+y}^2 + \n{x-y}^2 = 2\p{\n{x}^2 + \n{y}^2}. $$
+\end{lemma}
+
+\begin{proof}
+  Direct computation.
+\end{proof}
+
+\begin{lemma}
+  Let $p \ne 2$ and $p \ge 1$.
+  Then the $l^p$ norm is not induced by any inner product.
+\end{lemma}
+
+\begin{proof}
+  $2^{1/p} + 2^{1/p} \ne 2 (1 + 1). $
+\end{proof}
+
+\begin{definition}
+  We say $x$ and $y$ are \emph{orthogonal} and write $x \perp y$, iff $\i{x, y} = 0$.
+\end{definition}
+
+\begin{lemma}[Pythagoras]
+  $x_1, \dots, x_n$ are pairwise orthogonal iff
+  $$ \n{x_1+ \dots + x_n}^2 = \n{x_1}^2 + \dots + \n{x_n}^2. $$
+\end{lemma}
+
+\begin{proof}
+  Direct computation.
+\end{proof}
+
+\begin{lemma}[polarisation identity]
+  Let $U = \b{ \pm 1, \pm i}$ in case $K= \C$ and $U = \b{ \pm 1}$ in case $K = \R$. Then
+  $$ \i{x, y} = \frac{1}{4} \sum_{\ga \in U} \ga \n{x + \ga y}^2. $$
+\end{lemma}
+
+\begin{proof}
+  Direct computation.
+\end{proof}
+
+\begin{lemma}
+  Let $f \col U \to B$ a linear operator.
+  $\n{fu} = \n{u}$ for all $u \in U$ iff
+  $\i{fx, fy} = \i{x, y}$.
+\end{lemma}
+
+\begin{proof}
+  From the polarisation identity.
+\end{proof}
+
+\section{Hilbert spaces}
+
+\begin{definition}
+  Let $H$ be an inner product space.
+  $H$ is \emph{Hilbert}, iff it is complete with respect to the norm that is induced by the inner product.
+\end{definition}
+
+\begin{example}
+  Consider $C[a,b]$ with
+  $$ \i{f,g} := \p{ \int \ol f \cdot g }^{1/2}. $$
+  This space is not complete, so not Hilbert.
+  But its completion is isometrically isomorphic to $L^2[a, b]$.
+\end{example}
+
+\section{Projections}
+
+\begin{theorem}[existence and uniqueness of projections]
+  Let $H$ be a Hilbert space, $C$ a closed convex set, $a \in H$.
+  Then exists unique $x_0 \in C$ such that
+  $$ \n{a-x_0} = d := \dist \p{a, C}. $$
+\end{theorem}
+
+\begin{proof}[Proof of existence]
+  We may assume that $a = 0$.
+  We want a vector of minimal norm in $C$.
+  Exists a finite sequence $x_n \in C$ such that $\n{x_n} \to d$.
+  From parallelogram identity,
+  $$ \n{\frac{x_n-x_m}{2}}^2 + \n{\frac{x_n+x_m}{2}}^2 = \frac{\n{x_n}^2+\n{x_m}^2}{2}. $$
+  The right part tends to $d^2$; the right addend on the left part is at least $d^2$. Then $x_n \to x_0$ for some $x_0 \in C$, since $H$ is complete.
+\end{proof}
+
+\begin{proof}[Proof of uniqueness]
+  From the same identity we derive that the difference between two such vectors must be zero.
+\end{proof}
+
+\section{Projections onto linear subspaces}
+
+\begin{theorem}[definitions of a projection onto a subspace]
+  Let $U$ be a Hilbert space, $V \le U$.
+  Then $V$ is a closed convex set, and so satisfies the previous theorem.
+  Let $x \in U$, $y_0 \in V$.
+  The following are equivalent:
+  \begin{enumerate}
+    \item $\n{x-y_0} = \dist\p{X, V}$.
+    \item $x-y_0 \perp V$.
+  \end{enumerate}  
+\end{theorem}
+
+\begin{proof}[$2 \Rightarrow 1$]
+  Let $y \in V$.
+  Then
+  \begin{align*}
+    \n{x-y}^2
+    &= \n{\p{x-y_0}-\p{y-y_0}}^2 \\
+    &= \n{\p{x-y_0}}^2-\n{\p{y-y_0}}^2 \\
+    &\ge \n{x-y_0}^2.
+  \end{align*}
+\end{proof}
+
+\begin{proof}[$1 \Rightarrow 2$]
+  \begin{align*}
+    &\n{x -\p{y_0+\gb y}}^2 \\
+    &= \n{x-y_0}^2 + \a{\gb}^2 \n{y}^2 - 2 \Re\p{\gb \i{y, x-y_0} }.
+  \end{align*}
+  Choose $\gb$ such that $\gb \i{y, x-y_0} \in \R$ and $\gb \i{y, x-y_0} < 0$.
+  Since parabolas are convex, $y \perp x-y_0$ would lead to a contradiction.
+\end{proof}
+
+\begin{lemma}
+  In the conditions of the previous theorem, let $P \col U \to V$ map every $x \in U$ into the corresponding $y_0$. Then $P$ is linear.
+\end{lemma}
+
+\begin{proof}
+  Because
+  $$ \ga_1 x_1 - Px_1 + \ga_2 x_2 -P x_2 \perp K. $$
+\end{proof}
+
+\section{Riesz's lemma}
+
+\begin{lemma}[Riesz]
+  Let $H$ be a Hilbert space.
+  The following are equivalent:
+  ~\begin{enumerate}
+    \item $f$ is a continuous functional on $H$.
+    \item Exists $y \in H$ such that
+    $$ fx = \i{y, x}. $$ 
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}[$2 \Rightarrow 1$]
+  Clearly, $f$ is a continuous linear functional.
+  By CBS, $\n{fx} \le \n{x} \n{y}$.
+  This is sharp when $x = y$.
+\end{proof}
+
+\begin{proof}[$1 \Rightarrow 2$]
+  Let $N := \ker f$.
+  If $N = H$, then $f = 0$.
+  Suppose $w \in H \sm N$.
+  Define $v := w - P_N w$.
+  Obviously, $v \perp N$.
+  Define $\Phi_v(x) = \i{v, x}$.
+  Then $\ker \Phi_v = \ker f$, and so exists $c \in K$ such that $\Phi_v = c f$. Then
+  $$ fx = \i{v/c, x}. $$
+\end{proof}
+
+\begin{definition}
+  A topological vector space $V$ is \emph{reflexive}, iff the canonical map $V \to V^{**}$ is an isomorphism.
+\end{definition}
+
+\begin{example}
+  The map $\Phi_\s \col H \to H^*$ we have built in the proof is conjugate-linear:
+  $$ \Phi_{\ga v} = \ol{\ga} \Phi_v. $$
+  Thus any Hilbert space is reflexive.
+\end{example}
+
+\section{Orthonormal bases}
+
+\begin{definition}
+  A subset $S \ss U$ of a Hilbert space $U$ is \emph{orthonormal}, iff $\n{s} = 1$ and $s \perp s'$ for all different $s, s' \in S$. $S$ is a \emph{basis}, iff it is maximal among orthonormal sets.
+\end{definition}
+
+\begin{lemma}
+  An orthonormal basis $B$ exists.
+\end{lemma}
+
+\begin{proof}
+  From Zorn's lemma.
 \end{proof}
